@@ -2770,6 +2770,24 @@ public final class Settings {
          */
         public static final String QUICK_SETTINGS_RIBBON_TILES = "quick_settings__ribbon_tiles";
 
+	/**
+         * HALO, should default to 0 (no, do not show)
+         * @hide
+         */
+        public static final String HALO_ACTIVE = "halo_active";
+
+        /**
+         * HALO reversed?, should default to 1 (yes, reverse)
+         * @hide
+         */
+        public static final String HALO_REVERSED = "halo_reversed";
+
+        /**
+         * HALO hide?, should default to 0 (no, do not hide)
+         * @hide
+         */
+        public static final String HALO_HIDE = "halo_hide";
+
         /**
          * Navigation controls to Use
          *
@@ -2807,7 +2825,7 @@ public final class Settings {
          * 1: Small display (Froyo stock)
          * 2: No display (Gingerbread/ICS stock)
          * default: 2
-         * @hide
+	 * @hide
          */
         public static final String STATUS_BAR_AM_PM = "status_bar_am_pm";
 
