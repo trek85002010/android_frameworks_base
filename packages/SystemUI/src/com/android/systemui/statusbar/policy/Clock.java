@@ -69,6 +69,12 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
 
     Handler mHandler;
 
+    public static final int CLOCK_STYLE_NOCLOCK  = 0;
+    public static final int CLOCK_STYLE_RIGHT    = 1;
+    public static final int CLOCK_STYLE_CENTER   = 2;
+
+    protected int mClockStyle = CLOCK_STYLE_RIGHT;
+
     class SettingsObserver extends ContentObserver {
         SettingsObserver(Handler handler) {
             super(handler);
@@ -268,10 +274,15 @@ public class Clock extends TextView implements OnClickListener, OnLongClickListe
         updateVisibility();
     }
 
-    private void updateVisibility() {
-        boolean showClock = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.STATUS_BAR_CLOCK, 1, UserHandle.USER_CURRENT) == 1;
-        setVisibility(showClock && !mHidden ? View.VISIBLE : View.GONE);
+    public void updateVisibility() {
+        int showClock = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_CLOCK, 1, UserHandle.USER_CURRENT);
+	if (showClock == CLOCK_STYLE_RIGHT){
+            boolean sc = true;
+            setVisibility(sc && !mHidden ? View.VISIBLE : View.GONE);
+        } else {
+            setVisibility(View.GONE);
+        }
     }
 
     private void collapseStartActivity(Intent what) {
