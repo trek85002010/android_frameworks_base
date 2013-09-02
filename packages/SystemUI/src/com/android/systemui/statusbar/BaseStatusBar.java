@@ -53,7 +53,11 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -207,6 +211,16 @@ public abstract class BaseStatusBar extends SystemUI implements
     public Ticker getTicker() {
         return mTicker;
     }
+
+    public IStatusBarService getService() {
+        return mBarService;
+    }
+ 
+    public NotificationData getNotificationData() {
+        return mNotificationData;
+    }
+ 
+    private boolean mShowNotificationCounts;
 
     public IStatusBarService getStatusBarService() {
         return mBarService;
@@ -404,8 +418,6 @@ public abstract class BaseStatusBar extends SystemUI implements
 
         updateHalo();
 
-        SettingsObserver settingsObserver = new SettingsObserver(new Handler());
-        settingsObserver.observe();
     }
 
     public void setHaloTaskerActive(boolean haloTaskerActive, boolean updateNotificationIcons) {
@@ -1117,6 +1129,8 @@ public abstract class BaseStatusBar extends SystemUI implements
             mHandler.postDelayed(mPanelCollapseRunnable, COLLAPSE_AFTER_REMOVE_DELAY);
         }
 
+    }
+
     private Bitmap createRoundIcon(StatusBarNotification notification) {
         // Construct the round icon
         BitmapDrawable bd = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.halo_bg);
@@ -1309,7 +1323,7 @@ public abstract class BaseStatusBar extends SystemUI implements
 
         boolean updateTicker = notification.getNotification().tickerText != null
                 && !TextUtils.equals(notification.getNotification().tickerText,
-                        oldEntry.notification.notification.tickerText)) || mHaloActive;
+                        oldEntry.notification.getNotification().tickerText) || mHaloActive;
         boolean isTopAnyway = isTopNotification(rowParent, oldEntry);
         if (contentsUnchanged && bigContentsUnchanged && (orderUnchanged || isTopAnyway)) {
             if (DEBUG) Slog.d(TAG, "reusing notification for key: " + key);
