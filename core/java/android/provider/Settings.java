@@ -2763,12 +2763,6 @@ public final class Settings {
          */
         public static final String QS_QUICK_ACCESS_LINKED = "qs_quick_access_linked";
 
-       /**
-         * HALO enabled, should default to 0 (HALO is disabled)
-         * @hide
-         */
-        public static final String HALO_ENABLED = "halo_enabled";
-
         /**
          * Quick Settings Ribbon Tiles to Use
          *
