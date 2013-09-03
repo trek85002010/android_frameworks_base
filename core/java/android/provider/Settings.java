@@ -2864,8 +2864,7 @@ public final class Settings {
          * Whether to show the clock in status bar
          * of the stock battery icon
          * 0: don't show the clock
-         * 1: right side clock
-         * 2: centershow the clock
+         * 1: show the clock
          * default: 1
          * @hide
          */
